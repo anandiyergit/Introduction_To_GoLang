@@ -1,0 +1,631 @@
+
+Introduction to Go
+# Go is a general-purpose language that bridges the gap between efficient
+# statically typed languages and productive dynamic language. But it’s not just
+# the language that makes Go special – Go has broad and consistent standard
+# libraries and powerful but simple tools.
+# 
+# This talk gives an introduction to Go, followed by a tour of some real
+# programs that demonstrate the power, scope, and simplicity of the Go
+# programming environment.
+
+11th Aug 2017
+
+Anand Iyer
+TIBCO Software Inc.
+aniyer@tibco.com
+@Anandiyer15
+https://github.com/anandiyergit
+
+
+* What is Go
+
+Go (often referred to as golang) is a free and open source programming language created at Google.
+
+Started as a Google project in late 2007.
+
+Released as an open source project in November 2009. 
+
+Publicly released under a BSD license.
+
+Go 1 released in March 2012.
+
+.image introduction_to_go/img/golang_logo.png
+
+
+* Creators
+
+Robert Griesemer
+
+Ken Thompson
+
+Rob Pike
+
+.image introduction_to_go/img/creators_of_go.jpg
+
+"When the three of us [Thompson, Rob Pike, and Robert Griesemer] got started, it was pure research. The three of us got together and decided that we hated C++. [laughter] ... [Returning to Go,] we started off with the idea that all three of us had to be talked into every feature in the language, so there was no extraneous garbage put into the language for any reason."	-Ken Thompson
+
+
+* Why A New Language
+
+.image introduction_to_go/img/why_new_language1.jpg
+
+
+* Why Go
+
+Motivated by Google's need.
+
+- Efficiency
+- Native code generation (compiled)
+- Concurrency
+- Scalability
+- Statically typed
+- Memory safe
+- Garbage collected
+- Excellent standard library
+- Fast development cycle
+- Great tools
+
+
+* Design Principles
+
+"Consensus drove the design. Nothing went into the language until [Ken Thompson, Robert Griesemer, and myself] all agreed that it was right. Some features didn’t get resolved until after a year or more of discussion." - Rob Pike
+
+- Support for environment adopting patterns similar to dynamic languages
+- Fast Compilation time
+- InBuilt concurrency support: light-weight processes
+- Conciseness, Simplicity, and Safety
+- Support for Interfaces and Type embedding
+- Building and designing in pure open source way
+- Go fast & Make programming fun again!
+
+
+* Go is choice for
+
+- Cloud & microservices
+- Web servers
+- Systems utilities
+- Databases
+- Networking
+- Monitoring tools 
+
+.image introduction_to_go/img/companies_using_go.jpg
+
+
+* Features excluded intentionally
+
+- Type inheritance
+- Method or operator overloading
+- Circular dependencies among packages
+- Pointer arithmetic
+- Generic programming
+
+.image introduction_to_go/img/excluded_features_go.jpg	
+
+
+* Go vs Java
+
+- JVM
+- Memory Management
+- OOP (No Classes and Inheritence!)
+- Pointers
+- Concurrency
+- Generics
+- Exception Handling (Panic!)
+
+.image introduction_to_go/img/go_vs_java.png
+
+
+* Setting up Environment
+
+.image introduction_to_go/img/setting_up_go_env.png
+
+* Getting Started
+
+.link http://golang.org/doc/install
+
+- Install from binary distributions or build from source
+- 32- and 64-bit x86 and ARM processors
+- Windows, Mac OS X, Linux, and FreeBSD
+- Other platforms may be supported by `gccgo`
+
+# Go is available in binary form for Windows, Mac OS X, Linux, and FreeBSD running under 32 and 64-bit x86 processor architectures. To install Go on these systems, download the appropriate file from golang.org and either open the package installer (Windows or OS X) or extract the archive to /usr/local/go (Linux and FreeBSD).  
+
+# If you use a different operating system or processor architecture, you may still be able to use Go by building it from source or using gccgo (an alternate Go compiler based on the GNU C Compiler). See the installation instructions on golang.org for how to do this.
+
+.image introduction_to_go/img/setting_up_go.jpg
+
+
+* Go Command line
+
+Verify the environment variables
+
+	$ go env
+Verify the version
+
+	$ go version
+The help package
+
+	$ go help
+Building/Compiling a gocode
+
+	$ go build hello.go
+Running a gocode
+
+	$ go run hello.go
+
+
+* Create a workspace
+
+#I prefer to use the name "gocode", but you can use whatever you like.
+
+  $ mkdir -p $HOME/gocode/src
+(The `bin` and `pkg` sub-directories will be created by the `go` tool.)
+Tell the `go` tool where your workspace is by setting the `GOPATH` environment variable:
+
+  export GOPATH=$HOME/gocode
+
+You may also want to add the `bin` sub-directory of your workspace to your `PATH`:
+
+  export PATH=$PATH:$GOPATH/bin
+
+This lets you run your Go programs without specifying their full path.
+(You may want to put these `export` commands in the `.bash_profile` file in your home directory.)
+
+
+* Choose a namespace
+
+Choose a special place for your Go code.
+I use `"github.com/anandiyergit"`, the root of my GitHub account (useful with `go get`).
+
+  $ mkdir -p $GOPATH/src/github.com/anandiyergit
+
+Create a `hello` directory in your namespace and copy `hello.go` there:
+  
+  $ mkdir $GOPATH/src/github.com/anandiyergit/hello
+  $ cp hello.go $GOPATH/src/github.com/anandiyergit/hello
+
+Now you can build and install the hello program with the `go` tool:
+
+  $ go install github.com/anandiyergit/hello
+
+Builds an executable named `hello`, and installs it to the `bin` directory of workspace.
+
+  $ $GOPATH/bin/hello
+  Hello, fellow gopher
+
+
+* Go Playground
+
+.link https://play.golang.org/
+.image introduction_to_go/img/go_playground.jpg
+
+
+* Lets Get Started!
+
+.image introduction_to_go/img/flying_gopher.png
+.image introduction_to_go/img/test1.png
+
+
+* Hello, World!
+
+.play introduction_to_go/codes/helloWorld.go
+
+.image introduction_to_go/img/hello_world.jpg
+* Type Inference
+
+Go is statically typed, but type inference saves repetition.
+
+
+C/C++
+
+	int i = 1;
+
+Go
+
+.play introduction_to_go/codes/dataTypes.go /start main OMIT/,/end main OMIT/
+
+
+* Struct
+
+Structs describe and control the layout of data.
+.code introduction_to_go/codes/struct.go /show struct OMIT/,/end struct OMIT/
+.play introduction_to_go/codes/struct.go /start main OMIT/,/end main OMIT/
+.code introduction_to_go/codes/struct.go /start print OMIT/,/end print OMIT/
+
+
+* Strings
+
+.play introduction_to_go/codes/strings.go
+
+
+For more information refer to documentation:-
+.link https://golang.org/pkg/strings/
+
+
+* Decisions
+
+.play introduction_to_go/codes/decision.go /start main OMIT/,/end main OMIT/
+
+.image introduction_to_go/img/if_else.png
+
+
+* Loops
+
+.play introduction_to_go/codes/loops.go /start main OMIT/,/end main OMIT/
+
+.image introduction_to_go/img/for_loop1.png
+
+
+* Functions
+
+.image introduction_to_go/img/function.jpg
+
+
+* Basic Functions
+
+.code introduction_to_go/codes/function.go /start main OMIT/,/end main OMIT/
+.play introduction_to_go/codes/function.go /start add OMIT/,/end add OMIT/
+
+
+* Functions on the Fly
+
+.play introduction_to_go/codes/functionsOnFly.go /start main OMIT/,/end main OMIT/
+
+
+* Functions with multiple values
+
+.code introduction_to_go/codes/functionsMultipleValues.go /start main OMIT/,/end main OMIT/
+.play introduction_to_go/codes/functionsMultipleValues.go /start swap OMIT/,/end swap OMIT/
+
+.image introduction_to_go/img/functions_with_multiple_values.png
+
+* Function Closures
+
+.code introduction_to_go/codes/functionClosure.go /start main OMIT/,/end main OMIT/
+.play introduction_to_go/codes/functionClosure.go /start getSequence OMIT/,/end getSequence OMIT/
+
+
+* Visibility
+
+With methods not declared as part of the type definition, how to say private/public?
+
+Case of first character determines visibility outside package.
+
+thisOneIsNot
+.code introduction_to_go/codes/visibility.go /start add OMIT/,/end add OMIT/
+
+ThisNameIsPublic
+.code introduction_to_go/codes/visibility.go /start Add OMIT/,/end Add OMIT/
+
+
+* Methods
+
+A method is a function with a special receiver argument.
+The receiver appears in its own argument list between the func keyword and the method name
+
+.code introduction_to_go/codes/method.go /show Vertex OMIT/,/end Vertex OMIT/
+.code introduction_to_go/codes/method.go /start Abs OMIT/,/end Abs OMIT/
+.play introduction_to_go/codes/method.go /start main OMIT/,/end main OMIT/
+
+
+* Pointers
+
+.image introduction_to_go/img/pointers.jpg
+.image introduction_to_go/img/pointers1.jpg
+
+
+* Pointers
+
+.code introduction_to_go/codes/pointers.go /show Mutable OMIT/,/end Mutable OMIT/
+.code introduction_to_go/codes/pointers.go /start staytheSame OMIT/,/end staytheSame OMIT/
+.code introduction_to_go/codes/pointers.go /start mutate OMIT/,/end mutate OMIT/
+.play introduction_to_go/codes/pointers.go /start main OMIT/,/end main OMIT/
+
+
+* Interfaces
+
+.image introduction_to_go/img/happy_golang.png
+
+
+* Interfaces
+
+.code introduction_to_go/codes/interfaces.go /start geometry OMIT/,/end geometry OMIT/
+.code introduction_to_go/codes/interfaces.go /show circle OMIT/,/end circle OMIT/
+.code introduction_to_go/codes/interfaces.go /start area OMIT/,/end area OMIT/
+.code introduction_to_go/codes/interfaces.go /start measure OMIT/,/end measure OMIT/
+.play introduction_to_go/codes/interfaces.go /start main OMIT/,/end main OMIT/
+
+
+* Empty interface
+
+The interface type that specifies zero methods is known as the empty interface:
+	
+	interface{}
+
+Empty interfaces are used by code that handles values of unknown type. 
+For example, fmt.Print takes any number of arguments of type interface{}.
+
+.code introduction_to_go/codes/emptyInterface.go /start describe OMIT/,/end describe OMIT/
+.play introduction_to_go/codes/emptyInterface.go /start main OMIT/,/end main OMIT/
+
+
+* Concurrency
+
+.image introduction_to_go/img/concurrency.jpg
+
+
+* Concurrency
+
+"Concurrency is about dealing *with* lots of things at once. Parallelism is about *doing* lots of things at once."    - Rob Pike
+
+- Concurrency is not parallelism, although it enables parallelism.
+- If you have only one processor, your program can still be concurrent but it cannot be parallel.
+
+Concurrency is achieved by
+
+- Goroutines
+- Channels
+
+
+* Gorountines
+
+.image introduction_to_go/img/goroutines.jpeg
+
+
+* Gorountines
+
+- It's an independently executing function, launched by a go statement.
+- It has its own call stack, which grows and shrinks as required.
+- It's very cheap. It's practical to have thousands, even hundreds of thousands of goroutines.
+- It's not a thread.
+
+
+# This will not run as there is no sleep.
+* Simple Goroutine
+
+.play introduction_to_go/codes/goroutines_with_error.go /start main OMIT/,/end main OMIT/
+.code introduction_to_go/codes/goroutines_with_error.go /start newMethod OMIT/,/end newMethod OMIT/
+
+
+* Continued.. Goroutine
+
+.play introduction_to_go/codes/goroutines_corrected.go /start main OMIT/,/end main OMIT/
+.code introduction_to_go/codes/goroutines_corrected.go /start newMethod OMIT/,/end newMethod OMIT/
+
+
+* Channels
+
+- Type safe message queues that have the intelligence to control the behavior of any goroutine attempting to receive or send on it
+- In-built synchronization
+- A type-safe pipe for communicating between different parts of your program
+
+_Don't_ _communicate_ _by_ _sharing_ _memory_; _share_ _memory_ _by_ _communicating_. 
+
+.image introduction_to_go/img/thumbs_up_golang.jpg
+
+
+* Unbuffered Channels
+
+.image introduction_to_go/img/unbuffered_Channels.png
+
+
+* Buffered Channels
+
+.image introduction_to_go/img/buffered_Channels.png
+
+
+* Channels..
+
+	a := make(chan int)             // we called it an unbuffered channel.
+
+	b := make(chan string, 5)       // we called it a buffered channel.
+
+	c <− 1          ← Send the integer 1 to the channel c
+
+	<− c            ← Receive an integer from the channel c
+
+	b := <− c       ← Receive from the channel c and store it in b
+
+	r := make(<-chan bool)          // can only read from
+
+	w := make(chan<- []os.FileInfo) // can only write to 
+
+.image introduction_to_go/img/channel_pipe.jpg
+
+
+* Concurrency Problem
+
+*Problem* *Statement*
+Make 5 cakes and once it is ready, send it out for delivery. 
+
+.image introduction_to_go/img/baking_cake1.jpg
+.image introduction_to_go/img/sending_cake.jpg
+
+
+* Concurrency..
+
+.code introduction_to_go/codes/bake_and_send.go /start i OMIT/,/end i OMIT/
+.play introduction_to_go/codes/bake_and_send.go /start main OMIT/,/end main OMIT/
+.code introduction_to_go/codes/bake_and_send.go /start makeCake OMIT/,/end makeCake OMIT/
+.code introduction_to_go/codes/bake_and_send.go /start sendCake OMIT/,/end sendCake OMIT/
+
+
+* Concurrency Problem
+
+*Problem* *Statement*
+
+Create a Relay race between 4 Runners. Make sure as per the rule the second runner can start running only after receiving baton from the first runner and only the fourth runner finishes the race. 
+The key to the race is that only one runner per team can be running at a time. 
+
+.image introduction_to_go/img/relay_race.jpg
+
+* Concurrency..
+
+.play introduction_to_go/codes/baton_relay_race.go /start main OMIT/,/end main OMIT/
+
+
+* Concurrency..
+
+.code introduction_to_go/codes/baton_relay_race.go /start Runner OMIT/,/end Runner OMIT/
+
+
+* Race Detection
+
+go tool has in-built support
+
+	go build -race
+
+A typical O/P for a detected condition would be
+
+	Found 1 data race(s)
+
+It also prints the stack trace for the value which might be affected here.
+
+.image introduction_to_go/img/race_detection1.png
+
+
+* Web Server
+
+.play introduction_to_go/codes/httpServer.go
+
+
+* Testing
+
+.image introduction_to_go/img/testing.jpg
+
+
+* Testing Go code
+
+Go has a built-in testing framework.
+
+It is provided by the `testing` package and the `go` `test` command.
+
+Here is a complete test file that tests the `strings.Index` function:
+
+.code introduction_to_go/testing/string_test.go
+
+
+* T
+
+The `*testing.T` argument is used for error reporting:
+
+	t.Errorf("got bar = %v, want %v", got, want)
+	t.Fatalf("Frobnicate(%v) returned error: %v", arg, err)
+	t.Logf("iteration %v", i)
+
+And enabling parallel tests:
+
+	t.Parallel()
+
+And controlling whether a test runs at all:
+
+	if runtime.GOARCH == "arm" {
+		t.Skip("this doesn't work on ARM")
+	}
+
+
+* Running tests
+
+The `go` `test` command runs tests for the specified package.
+(It defaults to the package in the current directory.)
+
+	$ go test
+	PASS
+
+	$ go test -v
+	=== RUN TestIndex
+	--- PASS: TestIndex (0.00 seconds)
+	PASS
+
+To run the tests for all my projects:
+
+	$ go test github.com/anandiyergit/...
+
+Or for the standard library:
+
+	$ go test std
+
+
+* Test coverage
+
+The `go` tool can report test coverage statistics.
+
+	$ go test -cover
+	PASS
+	coverage: 96.4% of statements
+	ok  	strings	0.692s
+
+The `go` tool can generate coverage profiles that may be intepreted by the `cover` tool.
+
+	$ go test -coverprofile=cover.out
+	$ go tool cover -func=cover.out
+	strings/reader.go:    Len             66.7%
+	strings/strings.go:   TrimSuffix     100.0%
+	... many lines omitted ...
+	strings/strings.go:   Replace        100.0%
+	strings/strings.go:   EqualFold      100.0%
+	total:                (statements)    96.4%
+
+* Coverage visualization
+
+	$ go tool cover -html=cover.out
+
+.image introduction_to_go/img/cover.png
+
+
+* Exercises
+
+- Implement a basic command line tool to accept a file and find out the highest occurrence of vowels used.  
+- Implement a Web-Server which will accept requests in form of data and persist it in a file or any storage mechanism like mongodb.
+- Learn about Go's concurrency primitives and perform multiple requests in parallel.
+
+.image introduction_to_go/img/exercise1.jpg
+
+
+* Conclusion
+
+.image introduction_to_go/img/conclusion.gif
+
+
+* Finally,
+
+- Expressive and comprehensible
+- Libraries good and growing
+- Comfortable and productive language
+- Lots of documentation, specification and tutorials are there on the web
+- More flexible and adaptable
+- Goroutines and channels make it easy to express complex operations dealing with
+
+Trust me, the surprises you discover will be pleasant ones!
+
+.image introduction_to_go/img/awesome_golang1.jpg 
+
+
+* Did you like the slides ?
+
+Made in Go
+Hosted with ❤  by GitHub and Google App Engine
+
+.image introduction_to_go/img/github_golang1.png
+.image introduction_to_go/img/app_engine.png
+
+
+* References
+
+All about Go:
+.link http://golang.org
+Go Tour (learn Go in your browser)
+.link http://tour.golang.org
+Ultimate examples
+.link https://www.goinggo.net/
+Informative Blogs 
+.link https://blog.golang.org/index
+Visualizing Concurrency
+.link http://divan.github.io/posts/go_concurrency_visualize/
+
+
+* Gophers, your journey starts here!
+
+.image introduction_to_go/img/go_get_started1.jpg
+
