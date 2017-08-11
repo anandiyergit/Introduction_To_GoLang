@@ -487,7 +487,7 @@ It also prints the stack trace for the value which might be affected here.
 
 * Web Server
 
-.play introduction_to_go/codes/httpServer.go
+.code introduction_to_go/codes/httpServer.go
 
 
 * Testing
