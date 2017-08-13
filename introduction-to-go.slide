@@ -585,8 +585,6 @@ The `go` tool can generate coverage profiles that may be intepreted by the `cove
 
 * Conclusion
 
-.image introduction_to_go/img/conclusion.gif
-
 
 * Finally,
 
